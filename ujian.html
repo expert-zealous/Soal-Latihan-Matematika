@@ -295,7 +295,7 @@ body{
 
     width:100%;
 
-    margin-top:22px;
+    margin-top:60px;
 
     padding:11px;
 
@@ -696,6 +696,9 @@ function updateNavigasiAktif(){
 }
 
 function selesaiUjian(){
+    // >>> Konfirmasi dulu sebelum selesai
+    const yakin = confirm("Apakah Anda yakin ingin mengakhiri ujian?");
+    if(!yakin) return;
     
     document.getElementById("timer").style.display = "none";
 
