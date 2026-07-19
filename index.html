@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Expert Zealous CBT</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial;
+    min-height:100vh;
+    background:linear-gradient(135deg,#0d47a1,#1976d2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    padding:20px;
+}
+
+.background{
+    position:absolute;
+    width:500px;
+    height:500px;
+    background:rgba(255,255,255,0.08);
+    border-radius:50%;
+    top:-150px;
+    right:-150px;
+}
+
+.background2{
+    position:absolute;
+    width:400px;
+    height:400px;
+    background:rgba(255,255,255,0.05);
+    border-radius:50%;
+    bottom:-120px;
+    left:-120px;
+}
+
+.card{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:420px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(12px);
+    padding:35px;
+    border-radius:25px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.3);
+    text-align:center;
+    color:white;
+}
+
+.logo{
+    width:260px;
+    margin:auto;
+    display:block;
+    margin-bottom:8px;
+}
+
+.motto{
+    font-size:24px;
+    font-style:italic;
+    font-weight:bold;
+    color:gold;
+    margin-bottom:4px;
+    line-height:1.2;
+}
+
+.sub{
+    font-size:15px;
+    opacity:0.92;
+    line-height:1.2;
+    margin-bottom:18px;
+}
+    
+input{
+    width:100%;
+    padding:15px;
+    margin-top:18px;
+    border:none;
+    border-radius:14px;
+    font-size:16px;
+    outline:none;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:22px;
+    border:none;
+    border-radius:14px;
+    background:gold;
+    color:#0d47a1;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+.running{
+    margin-top:25px;
+    overflow:hidden;
+    white-space:nowrap;
+    width:100%;
+    position:relative;
+}
+
+.running div{
+    display:inline-block;
+    padding-left:100%;
+    animation:jalan 15s linear infinite;
+    color:white;
+    font-size:14px;
+    opacity:0.9;
+}
+
+@keyframes jalan{
+
+    0%{
+        transform:translateX(0);
+    }
+
+    100%{
+        transform:translateX(-100%);
+    }
+
+}
+    
+</style>
+</head>
+<body>
+
+<div class="background"></div>
+<div class="background2"></div>
+
+<div class="card">
+
+<img class="logo"
+src="https://drive.google.com/thumbnail?sz=w1000&id=1r6OAqG_IeaIbkVEbi-DMJVYEy5s0-mRW">
+
+<div class="motto">
+Expert Zealous
+</div>
+
+<div class="sub">
+Jagonya Les Private Matematika
+</div>
+
+<input type="text" id="nomor"
+placeholder="Nomor Peserta">
+
+<input type="text" id="nama"
+placeholder="Nama Peserta">
+
+<button onclick="mulaiUjian()">
+Mulai Ujian
+</button>
+
+<div class="running">
+<div>
+Jl. Waru Gang 1 No 1 • Kelurahan Rembang • Kecamatan Sananwetan • Kota Blitar • CP: 085850674833 • Expert Zealous • Jagonya Les Private Matematika
+</div>
+</div>
+    
+<script>
+
+const csvPeserta = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBwCh8bWn1_YXtW4ITfOz6qSRI_x5wTO8_JIuL9v5ibeiEdPQP0vEwG_dPJnM1UutBVZjRaDI8DSVN/pub?gid=39316765&single=true&output=csv";
+
+async function mulaiUjian(){
+
+    const nomor = document.getElementById("nomor").value.trim();
+    const nama = document.getElementById("nama").value.trim().toLowerCase();
+
+    if(nomor === "" || nama === ""){
+
+        alert("Isi nomor dan nama peserta");
+        return;
+
+    }
+
+    try{
+
+        const response = await fetch(csvPeserta);
+
+        const data = await response.text();
+
+        const rows = data.split("\n").slice(1);
+
+        let valid = false;
+
+        rows.forEach(row=>{
+
+            const cols = row.split(",");
+
+            const nomorSheet = cols[0]?.trim();
+            const namaSheet = cols[1]?.trim().toLowerCase();
+
+            if(nomor===nomorSheet && nama===namaSheet){
+
+                valid = true;
+
+            }
+
+        });
+
+        if(valid){
+
+            localStorage.setItem("namaPeserta",nama);
+            localStorage.setItem("nomorPeserta",nomor);
+
+            window.location.href="ujian.html";
+
+        }else{
+
+            alert("Peserta tidak terdaftar");
+
+        }
+
+    }catch(error){
+
+        alert("Gagal mengambil data");
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
