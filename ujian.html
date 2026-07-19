@@ -169,33 +169,30 @@ body{
 }    
 /* PILIHAN */
 
-#pilihanJawaban{
+/* PILIHAN */
 
-    margin-top:8px;
+#pilihanJawaban{
+    margin-top:15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Membagi jadi 2 kolom (A & B sejajar, C & D di bawahnya) */
+    gap: 12px; /* Jarak antar tombol */
 }
 
 .pilihan{
-
     background:#2196f3;
-
     color:white;
-
-    padding:10px 12px;
-
+    padding:15px; /* Membuat tombol lebih tebal/besar */
     border-radius:12px;
-
-    margin-top:8px;
-
-    font-size:14px;
-
+    font-size:16px; /* Huruf sedikit lebih besar */
     font-weight:bold;
-
+    text-align:center; /* Teks otomatis di tengah */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height: 55px; /* Minimal tinggi tombol supaya sangat nyaman diklik di HP */
     cursor:pointer;
-
     transition:0.2s;
-
 }
-
 .pilihan:hover{
 
     transform:scale(1.01);
